@@ -1,0 +1,34 @@
+<section class="todoapp">
+  <header class="header">
+    <h1>My Lists</h1>
+
+    <%= form_for(@list) do |f| %>
+    <!-- <%= debug @lists %> -->
+      <%= f.text_field :name, :class => "new-todo", :placeholder => (@list.errors.full_messages_for(:name).first || "Enter a new list name...") %>
+      <!-- <p>item field is mirrored in lists/show.html.erb</p> -->
+
+      <%= f.submit :style => "display: none" %>
+
+    <% end %>
+
+</form>
+  </header>
+  <section class="main">
+    <input class="toggle-all" type="checkbox">
+    <label for="toggle-all">Mark all as complete</label>
+    <ul class="todo-list">
+  <!-- Iteration so that #index action displays  -->
+
+   <% @lists.each do |list| %>
+      <li>
+        <div class="view">
+          <label><%= link_to list.name, list_path(list) %></label>
+                  <%= button_to "x", list_path(list), :method => "delete", :class => "destroy" %>
+        </div>
+      </li>
+      <% end %>
+    </ul>
+  </section>
+  <footer class="footer">
+  </footer>
+</section>
